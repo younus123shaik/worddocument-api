@@ -4,7 +4,7 @@ const documentSchema= mongoose.Schema({
     name:String,
     docId : String,
     data : {
-        type: String,
+        type: Object,
         required:true
     },
 });

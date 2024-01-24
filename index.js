@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 Connection();
 const io = new Server(server, {
   cors: {
+    // origin: 'http://localhost:3000',
     origin: 'https://worddocument.onrender.com',
     methods: ['GET', 'POST']
   }
@@ -20,17 +21,17 @@ io.on('connection', socket=>{
   socket.on('get-document', async (documentId) => {
     const document = await getDocument(documentId);
     socket.join(documentId);
-    console.log(document)
     socket.on('send-changes', delta => {
       socket.broadcast.to(documentId.id).emit('receive-changes', delta);
       console.log(delta)
     })
     try {
+      console.log(document[0])
       socket.emit('load-document', document[0].data);
       
     } catch (error) {
       socket.emit('load-document', " ");
-      
+      console.log(error)
     }
       
       socket.on('save-document', async data => {

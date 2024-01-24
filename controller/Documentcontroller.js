@@ -17,7 +17,7 @@ try {
 const updateDocument = async (id, data) => {
     try {
          if (data.ops[0].insert.length === 0) return
-        await Document.findOneAndUpdate({docId:id.id},{data:data.ops[0].insert})
+        await Document.findOneAndUpdate({docId:id.id},{data})
         
     } catch (error) {
         
